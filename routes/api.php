@@ -16,7 +16,13 @@ use Illuminate\Http\Request;
 
 
 
-
+// USER
 Route::post('login','api\AuthController@login');
 Route::post('register','api\AuthController@register');
 Route::get('logout','api\AuthController@logout');
+
+//POST
+Route::post('posts/create','api\AuthController@create');
+Route::post('posts/delete','api\AuthController@delete');
+Route::post('posts/update','api\AuthController@update');
+Route::post('posts','api\AuthController@post');
