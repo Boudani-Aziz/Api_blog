@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
+    public function __construct(){
+
+        return $this->middleware('jwtAuth');
+    }
     public function create(Request $request){
 
     $post = new Post;
@@ -34,4 +38,8 @@ class PostsController extends Controller
     ]);
 
     }
+
+    // UPDATE 
+
+    
 }
