@@ -25,4 +25,4 @@ Route::get('logout','api\AuthController@logout');
 Route::post('posts/create','api\PostsController@create');
 Route::post('posts/delete','api\PostsController@delete');
 Route::post('posts/update','api\PostsController@update');
-Route::post('posts','api\PostsController@post');
+Route::get('posts','api\PostsController@posts');
