@@ -18,7 +18,7 @@ class PostsController extends Controller
 
     public function create(Request $request){
     $post = new Post;
-    $post->user_id =Auth::user()->id;
+    $post->user_id = Auth::user()->id;
     $post->desc = $request->desc;
 
     // Verifion si la photo existe 

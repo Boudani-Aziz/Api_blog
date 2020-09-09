@@ -2,20 +2,30 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\User;
 use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 
 class CommentsController extends Controller
 {
+
+    public function __construct(){
+
+        return $this->middleware('jwtAuth');
+    }
+    
     // CREATE COMMENT
 
     public function create(Request $request){
 
         $comment = new Comment;
+
         $comment->user_id = Auth::user()->id;
         $comment->post_id = $request->id;
-        $comment->comment= $request->comment;
+        $comment->comment = $request->comment;
         $comment->save();
 
         return response()->json([
@@ -26,17 +36,17 @@ class CommentsController extends Controller
     }
     
     //UPDATE COMMENT
-    public function update(Comment $comment,Request $request){
+    public function update(Request $request){
 
-        //$post = Post::find($request->id);
+           $comment = Comment::find($request->id);
             // check if user is editing his own post 
-            if(Auth::user()->id != $request->id){
+            if(Auth::user()->id != $comment->id){
                 return response()->json([
                     'success'=>false,
                     'message' =>'unauthorized access'
                 ]);
 
-            }
+            }else{
                 $comment->comment = request('comment');
                 $comment->update();
 
@@ -44,17 +54,19 @@ class CommentsController extends Controller
                     'success'=> true,
                     'message'=> 'comment edited'
                 ]);
+            }
+                
             
 
     }
 
     //DELETE COMMENT
 
-    public function delete(Comment $comment,Request $request){
+    public function delete(Request $request){
 
-        //$post = Post::find($request->id);
+           $comment = Comment::find($request->id);
             // check if user is editing his own post 
-            if(Auth::user()->id != $request->id){
+            if(Auth::user()->id != $comment->id){
                 return response()->json([
                     'success'=>false,
                     'message' =>'unauthorized access'
@@ -62,7 +74,7 @@ class CommentsController extends Controller
 
             }
                
-                $comment->update();
+                $comment->delete();
 
                 return response()->json([
                     'success'=> true,
@@ -76,7 +88,7 @@ class CommentsController extends Controller
 
     public function comments(Request $request){
 
-        $comments = Comment::where('post_id',$request->id);
+        $comments = Comment::where('post_id',$request->id)->get();
             //SHOW USER EACH COMMENT
 
         foreach($comments as $comment){

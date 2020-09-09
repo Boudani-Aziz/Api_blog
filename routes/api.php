@@ -31,4 +31,8 @@ Route::get('posts','api\PostsController@posts');
 Route::post('comments/create','api\CommentsController@create');
 Route::post('comments/delete','api\CommentsController@delete');
 Route::post('comments/update','api\CommentsController@update');
-Route::get('posts/comments','api\CommentsController@posts');
+Route::post('posts/comments','api\CommentsController@comments');
+
+//LIKES
+
+Route::post('posts/like','api\LikesController@like');
