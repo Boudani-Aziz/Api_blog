@@ -26,3 +26,9 @@ Route::post('posts/create','api\PostsController@create');
 Route::post('posts/delete','api\PostsController@delete');
 Route::post('posts/update','api\PostsController@update');
 Route::get('posts','api\PostsController@posts');
+
+//COMMENT
+Route::post('comments/create','api\CommentsController@create');
+Route::post('comments/delete','api\CommentsController@delete');
+Route::post('comments/update','api\CommentsController@update');
+Route::get('posts/comments','api\CommentsController@posts');
